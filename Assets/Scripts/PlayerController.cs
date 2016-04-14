@@ -24,10 +24,6 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
     private Rigidbody2D rb2d;
 
-    public int health = 1000;
-    public int life = 3;
-    public int damageTaken = 0;
-
     // Use this for initialization
     void Awake()
     {
@@ -53,7 +49,6 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        damageTaken = 0;
         float h = Input.GetAxis("Horizontal");
 
         anim.SetFloat("Speed", Mathf.Abs(h));
@@ -106,11 +101,6 @@ public class PlayerController : MonoBehaviour {
             jump = false;
         }
         */
-    }
-
-    void LateUpdate()
-    {
-        CheckDamage();
     }
 
     void Flip()
@@ -182,47 +172,5 @@ public class PlayerController : MonoBehaviour {
     private void ResetSwing()
     {
         swing = false;
-    }
-
-    public void TakeDamage(int value)
-    {
-        damageTaken += value;
-    }
-
-    private void CheckDamage()
-    {
-        anim.SetFloat("Damage", damageTaken);
-        
-        if (damageTaken > 0)
-        {
-            anim.Play("Damaged");
-            health -= damageTaken;
-        }
-        if (health <= 0)
-        {
-            KillPlayer();
-        }
-    }
-
-    public void KillPlayer()
-    {
-        life--;
-        if (life <= 0)
-        {
-            GameOver();
-        }
-        else {
-            Reswpawn();
-        }
-    }
-
-    private void Reswpawn()
-    {
-        health = 100;
-    }
-
-    private void GameOver()
-    {
-
     }
 }

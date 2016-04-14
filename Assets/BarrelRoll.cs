@@ -3,7 +3,8 @@ using System.Collections;
 
 public class BarrelRoll : MonoBehaviour {
 
-    private PlayerController player;
+    //private PlayerController player;
+    private PlayerManager player;
     Rigidbody2D rb2d;
     public float rollSpeed;
     public float moveSpeed;
@@ -11,11 +12,13 @@ public class BarrelRoll : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        player = FindObjectOfType<PlayerController>();
+        //player = FindObjectOfType<PlayerController>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        player = FindObjectOfType<PlayerManager>();
+
         transform.Rotate(Vector3.forward * rollSpeed * Time.deltaTime);
         rb2d.velocity = new Vector2(-moveSpeed, 0);
 
@@ -29,7 +32,10 @@ public class BarrelRoll : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player.TakeDamage(1);
+            if (player != null)
+            {
+                player.TakeDamage(1);
+            }
         }
     }
 

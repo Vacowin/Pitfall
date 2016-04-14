@@ -28,7 +28,7 @@ TagManager:
   - Pickups
   - Ground
   - Ladder
-  - 
+  - Pit
   - 
   - 
   - 
@@ -70,4 +70,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 149272721
+    locked: 0
+  - name: Pit
+    uniqueID: 3350214833
     locked: 0
