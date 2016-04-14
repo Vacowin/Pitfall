@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    private bool facingRight = true;
+    public bool facingRight = true;
     public bool jumping = false;
     public float moveForce = 365f;
     public float moveSpeed;
@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
     private Rigidbody2D rb2d;
 
+    public int health = 1000;
+    public int life = 3;
+    public int damageTaken = 0;
 
     // Use this for initialization
     void Awake()
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        damageTaken = 0;
         float h = Input.GetAxis("Horizontal");
 
         anim.SetFloat("Speed", Mathf.Abs(h));
@@ -104,6 +108,10 @@ public class PlayerController : MonoBehaviour {
         */
     }
 
+    void LateUpdate()
+    {
+        CheckDamage();
+    }
 
     void Flip()
     {
@@ -118,6 +126,8 @@ public class PlayerController : MonoBehaviour {
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
 
+        //anim.SetFloat("VSpeed", v);
+
         if (canClimb && !climbing && Mathf.Abs(v) > 0.1f && Mathf.Abs(h) < 0.1f)
         {
             climbing = true;
@@ -125,11 +135,9 @@ public class PlayerController : MonoBehaviour {
             rb2d.gravityScale = 0f;
             rb2d.isKinematic = true;
         }
-        else if (!canClimb)
+        else if (!canClimb && grounded)
         {
-            climbing = false;
-            rb2d.gravityScale = originGravity;
-            rb2d.isKinematic = false;
+            
         }
 
         if (climbing)
@@ -141,7 +149,14 @@ public class PlayerController : MonoBehaviour {
             {
                 rb2d.velocity = new Vector2(0f, 0f);
             }
+            if (!canClimb)
+            {
+                climbing = false;
+                rb2d.gravityScale = originGravity;
+                rb2d.isKinematic = false;
+            }
         }
+        //anim.SetBool("Climb", climbing);
     }
 
     void handleVineSwing()
@@ -167,5 +182,47 @@ public class PlayerController : MonoBehaviour {
     private void ResetSwing()
     {
         swing = false;
+    }
+
+    public void TakeDamage(int value)
+    {
+        damageTaken += value;
+    }
+
+    private void CheckDamage()
+    {
+        anim.SetFloat("Damage", damageTaken);
+        
+        if (damageTaken > 0)
+        {
+            anim.Play("Damaged");
+            health -= damageTaken;
+        }
+        if (health <= 0)
+        {
+            KillPlayer();
+        }
+    }
+
+    public void KillPlayer()
+    {
+        life--;
+        if (life <= 0)
+        {
+            GameOver();
+        }
+        else {
+            Reswpawn();
+        }
+    }
+
+    private void Reswpawn()
+    {
+        health = 100;
+    }
+
+    private void GameOver()
+    {
+
     }
 }
