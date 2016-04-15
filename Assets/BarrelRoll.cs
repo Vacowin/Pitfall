@@ -8,23 +8,26 @@ public class BarrelRoll : MonoBehaviour {
     Rigidbody2D rb2d;
     public float rollSpeed;
     public float moveSpeed;
-
+    public bool moving;
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        //player = FindObjectOfType<PlayerController>();
+        player = FindObjectOfType<PlayerManager>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        player = FindObjectOfType<PlayerManager>();
-
-        transform.Rotate(Vector3.forward * rollSpeed * Time.deltaTime);
-        rb2d.velocity = new Vector2(-moveSpeed, 0);
-
-        if (transform.position.x < -100)
+        if (moving)
         {
-            Destroy(gameObject);
+            player = FindObjectOfType<PlayerManager>();
+
+            transform.Rotate(Vector3.forward * rollSpeed * Time.deltaTime);
+            rb2d.velocity = new Vector2(-moveSpeed, 0);
+
+            if (transform.position.x < -100)
+            {
+                Destroy(gameObject);
+            }
         }
 	}
 

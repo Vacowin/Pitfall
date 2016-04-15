@@ -21,7 +21,7 @@ public class LadderController : MonoBehaviour {
         {
             Vector3 playerPos = player.gameObject.transform.position;
             Vector3 ladderPos = gameObject.transform.position;
-            if (Mathf.Abs(playerPos.x - ladderPos.x) < 0.5f)
+            if (Mathf.Abs(playerPos.x - ladderPos.x) < 5f)
             {
                 player.canClimb = true;
                 player.currentLadder = gameObject;

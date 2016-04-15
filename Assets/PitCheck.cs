@@ -19,7 +19,7 @@ public class PitCheck : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (Mathf.Abs(player.gameObject.transform.position.y - gameObject.transform.position.y) < 0.2)
+            if (Mathf.Abs(player.gameObject.transform.position.y - gameObject.transform.position.y) < 2)
             {
                 player.KillPlayer();
             }

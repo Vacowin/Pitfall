@@ -9,11 +9,13 @@ public class PlayerManager : MonoBehaviour {
     public int damageTaken = 0;
 
     private Animator anim;
+    private LevelManager levelManager;
 
     // Use this for initialization
     void Start () {
         health = MAX_HEATH;
         anim = GetComponent<Animator>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 	
 	// Update is called once per frame
@@ -72,7 +74,7 @@ public class PlayerManager : MonoBehaviour {
         gameObject.SetActive(true);
         anim.Play("Idle");
         health = MAX_HEATH;
-        gameObject.transform.position = new Vector3(0, 2, gameObject.transform.position.z);
+        levelManager.RespawnPlayer();
     }
 
     private void GameOver()

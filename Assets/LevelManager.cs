@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
+    public int SCENE_WIDTH = 100;
     public Transform playerSpawnSpot;
     public Transform barrelSpawnSpot;
     public float barrelSpawnTime;
@@ -37,5 +38,10 @@ public class LevelManager : MonoBehaviour {
     private void SpawnBarrel()
     {
         Instantiate(barrel, barrelSpawnSpot.position, barrelSpawnSpot.rotation);
+    }
+
+    public void RespawnPlayer()
+    {
+        player.gameObject.transform.position = playerSpawnSpot.position;
     }
 }
