@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This script check if the player is inside the climbing area of ladder
+
 public class LadderController : MonoBehaviour {
 
     private PlayerController player;
@@ -21,6 +23,7 @@ public class LadderController : MonoBehaviour {
         {
             Vector3 playerPos = player.gameObject.transform.position;
             Vector3 ladderPos = gameObject.transform.position;
+            // Make sure the player stays inside climbing area
             if (Mathf.Abs(playerPos.x - ladderPos.x) < 5f)
             {
                 player.canClimb = true;
@@ -33,6 +36,7 @@ public class LadderController : MonoBehaviour {
         }
     }
 
+    // Player leaves the ladder
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

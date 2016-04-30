@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This scripts handles barrel movement
 public class BarrelRoll : MonoBehaviour {
 
     private PlayerManager player;
@@ -16,6 +17,7 @@ public class BarrelRoll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Rolls across screen if set movable
         if (moving)
         {
             player = FindObjectOfType<PlayerManager>();
@@ -23,6 +25,7 @@ public class BarrelRoll : MonoBehaviour {
             transform.Rotate(Vector3.forward * rollSpeed * Time.deltaTime);
             rb2d.velocity = new Vector2(-moveSpeed, 0);
 
+            // Self destroy when gone off screen
             if (transform.position.x < -100)
             {
                 Destroy(gameObject);
@@ -30,6 +33,7 @@ public class BarrelRoll : MonoBehaviour {
         }
 	}
 
+    // Causes player damage on touch
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

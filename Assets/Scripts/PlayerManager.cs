@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This script manages the player heath/life states
+
 public class PlayerManager : MonoBehaviour {
 
     public int MAX_HEATH = 1000;
@@ -25,6 +27,7 @@ public class PlayerManager : MonoBehaviour {
 
     void FixedUpdate()
     {
+        // reset damage
         damageTaken = 0;
     }
 
@@ -33,11 +36,13 @@ public class PlayerManager : MonoBehaviour {
         CheckDamage();
     }
 
+    // Taking damage from touching barrels
     public void TakeDamage(int value)
     {
         damageTaken += value;
     }
 
+    // Calculate damage inflicted by barrels
     private void CheckDamage()
     {
         anim.SetFloat("Damage", damageTaken);
@@ -63,11 +68,13 @@ public class PlayerManager : MonoBehaviour {
         }
         else
         {
+            // Respawn player if there is still life left
             gameObject.SetActive(false);
             Invoke("Respawn", 1);
         }
     }
 
+    // Respawn player at the current spawn spot
     private void Respawn()
     {
         damageTaken = 0;

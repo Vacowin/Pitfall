@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This script make the pit deadly
+
 public class PitCheck : MonoBehaviour {
 
     private PlayerManager player;
@@ -19,6 +21,7 @@ public class PitCheck : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            // Check if the player is inside the pit
             if (Mathf.Abs(player.gameObject.transform.position.y - gameObject.transform.position.y) < 2)
             {
                 player.KillPlayer();

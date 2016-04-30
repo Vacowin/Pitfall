@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This class controls when the crocodile bites
+
 public class CrocodileBite : MonoBehaviour {
 
     public float mouthTime;
@@ -24,12 +26,14 @@ public class CrocodileBite : MonoBehaviour {
 	
 	}
 
+    // Change mouth bite state 
     private void CheckMouth()
     {
         mouthOpened = !mouthOpened;
         anim.SetBool("Mouth",mouthOpened);
     }
 
+    // Kill player on touch if mouth open
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

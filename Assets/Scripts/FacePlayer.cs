@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This script makes sure the crocodile also faces to the player
+
 public class FacePlayer : MonoBehaviour {
 
     public Transform playerPos;
@@ -13,6 +15,8 @@ public class FacePlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Change crocodile facing state based on player position
+
 	    if (playerPos.position.x < gameObject.transform.position.x && !facingLeft )
         {
             facingLeft = true;
@@ -25,6 +29,7 @@ public class FacePlayer : MonoBehaviour {
         }
 	}
 
+    // Flip crocodile sprite
     void Flip()
     {
         Vector3 theScale = transform.localScale;
